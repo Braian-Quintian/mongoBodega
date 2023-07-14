@@ -1,8 +1,6 @@
 ## Estructura del proyecto
 
 El proyecto se organiza de la siguiente manera:
-
-```
 - `server`
   - `server.js`: Este archivo contiene el código para que el servidor se ejecute.
     - Toma las variables de entorno (.env) desde la carpeta [`src/connection/credentials.js`](#srcconnectioncredentialsjs).
@@ -27,8 +25,7 @@ El proyecto se organiza de la siguiente manera:
   - `db`: Esta carpeta contiene 2 archivos:
     - `dataConnection.sql`: Contiene el código para crear la base de datos y las tablas.
     - `data.sql`: Contiene el código para insertar información en las tablas.
-```
-
+    
 Esta es la estructura del proyecto. Asegúrate de seguir este esquema para que el servidor y las rutas funcionen correctamente.
 
 ### Archivos
