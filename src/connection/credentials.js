@@ -2,7 +2,7 @@ import { config } from 'dotenv';
 config();
 const { CONFIG, HOST, USUARIO, PASSWORD, DATABASE } = process.env;
 const conexion = JSON.parse(CONFIG);
-export default {
+const credentials = {
     hostname: conexion.hostname,
     port: conexion.port,
     host: HOST,
@@ -10,3 +10,4 @@ export default {
     password: PASSWORD,
     database: DATABASE
 };
+export default credentials;
