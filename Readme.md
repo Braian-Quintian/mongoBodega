@@ -27,3 +27,22 @@ El proyecto se organiza de la siguiente manera:
     - `data.sql`: Contiene el código para insertar información en las tablas.
 
 Esta es la estructura del proyecto. Asegúrate de seguir este esquema para que el servidor y las rutas funcionen correctamente.
+
+
+ejemplo para enviar la data en bodega:
+{
+  "nombre" : 1,
+  "id_responsable" : 11,
+  "estado" : 1,
+  "created_by": 1,
+  "update_by": 1
+}
+
+Peticion para bodegas:
+METHOD: GET, url: http://127.127.127.127:6000/bodegas
+Pedicion para añadir una bodega:
+METHOD: POST, url:http://127.127.127.127:6000/bodegas
+Peticion para consultar todos los productos por el nombre:
+http://127.127.127.127:6000/productos
+Peticion para consultar todos los productos por el total:
+http://127.127.127.127:6000/productos/total
