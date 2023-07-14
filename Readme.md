@@ -3,11 +3,11 @@
 El proyecto se organiza de la siguiente manera:
 - `server`
   - `server.js`: Este archivo contiene el código para que el servidor se ejecute.
-    - Toma las variables de entorno (.env) desde la carpeta [`src/connection/credentials.js`](#srcconnectioncredentialsjs).
+    - Toma las variables de entorno (.env) desde la carpeta `src/connection/credentials.js`.
     - Utiliza el hostname y el puerto para inicializar el servidor.
 
 - `app.js`: Este archivo se encarga de gestionar todos los routes. Es el archivo principal cuando el servidor ya está en ejecución.
-  - Toma los routes desde la carpeta [`src/routes`](#srcroutes).
+  - Toma los routes desde la carpeta `src/routes`.
 
 - `src`
   - `connection`: Esta carpeta contiene dos archivos que contienen las respectivas configuraciones de conexión:
@@ -25,10 +25,5 @@ El proyecto se organiza de la siguiente manera:
   - `db`: Esta carpeta contiene 2 archivos:
     - `dataConnection.sql`: Contiene el código para crear la base de datos y las tablas.
     - `data.sql`: Contiene el código para insertar información en las tablas.
-    
+
 Esta es la estructura del proyecto. Asegúrate de seguir este esquema para que el servidor y las rutas funcionen correctamente.
-
-### Archivos
-
-- [src/connection/credentials.js](#srcconnectioncredentialsjs)
-- [src/routes](#srcroutes)
