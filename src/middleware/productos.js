@@ -4,7 +4,7 @@ const router = Router();
 
 router.get('/', methodsProductos.getProductos);
 router.get('/total', methodsProductos.getTotalProductos);
-// router.post('/', methodsProductos.addProductos);
+router.post('/', methodsProductos.addProductos);
 
 export {
     router
