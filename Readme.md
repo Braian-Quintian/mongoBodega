@@ -26,23 +26,35 @@ El proyecto se organiza de la siguiente manera:
     - `dataConnection.sql`: Contiene el código para crear la base de datos y las tablas.
     - `data.sql`: Contiene el código para insertar información en las tablas.
 
-Esta es la estructura del proyecto. Asegúrate de seguir este esquema para que el servidor y las rutas funcionen correctamente.
+Esta es la estructura del proyecto.
+ 
+ROUTES Y ENDPOINTS
+# Router de Bodegas
 
+El router de bodegas es una parte del sistema que se encarga de manejar las peticiones relacionadas con las bodegas. Proporciona endpoints para obtener información sobre las bodegas y agregar nuevas bodegas al sistema.
 
-ejemplo para enviar la data en bodega:
+## Cómo consumir el router de bodegas
+
+### Obtener información de las bodegas
+
+- **Método:** GET
+- **URL:** `http://127.127.127.127:6000/bodegas`
+
+Esta solicitud GET se utiliza para obtener información sobre todas las bodegas registradas en el sistema. Al realizar una solicitud a esta URL, recibirás una respuesta JSON que contiene los datos de las bodegas.
+
+### Agregar una nueva bodega
+
+- **Método:** POST
+- **URL:** `http://127.127.127.127:6000/bodegas`
+
+Para agregar una nueva bodega al sistema, realiza una solicitud POST a la URL mencionada. En el cuerpo de la solicitud, proporciona los datos de la nueva bodega en formato JSON. La solicitud debe incluir los siguientes campos:
+
+```json
 {
-  "nombre" : 1,
-  "id_responsable" : 11,
-  "estado" : 1,
-  "created_by": 1,
-  "update_by": 1
+  "nombre": "Nombre de la bodega",
+  "id_responsable": "ID del responsable de la bodega",
+  "estado": "Estado de la bodega",
+  "created_by": "ID del usuario que crea la bodega",
+  "update_by": "ID del usuario que actualiza la bodega"
 }
-
-Peticion para bodegas:
-METHOD: GET, url: http://127.127.127.127:6000/bodegas
-Pedicion para añadir una bodega:
-METHOD: POST, url:http://127.127.127.127:6000/bodegas
-Peticion para consultar todos los productos por el nombre:
-http://127.127.127.127:6000/productos
-Peticion para consultar todos los productos por el total:
-http://127.127.127.127:6000/productos/total
+```
