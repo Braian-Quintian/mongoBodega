@@ -117,3 +117,25 @@ Para agregar o actualizar un inventario, realiza una solicitud POST a la URL men
 El router de inventarios verificará si la combinación de id_producto e id_bodega ya existe en la tabla de inventarios. Si la combinación ya existe, se actualizará la cantidad sumando la cantidad existente con la cantidad nueva. Si es una combinación totalmente nueva, se creará un nuevo registro de inventario con los datos proporcionados.
 
 En caso de éxito, recibirás una respuesta JSON con el mensaje "Inventario actualizado exitosamente" si se actualiza un inventario existente, o "Inventario creado exitosamente" si se crea un nuevo inventario.
+
+# Router de Traslados
+
+El router de traslados maneja las peticiones relacionadas con el traslado de productos entre bodegas en el sistema. Proporciona un endpoint para realizar traslados de productos.
+
+## Cómo consumir el router de traslados
+
+### Realizar un traslado de producto
+
+- **Método:** POST
+- **URL:** `http://127.127.127.127:6000/traslados`
+
+Para realizar un traslado de producto, realiza una solicitud POST a la URL mencionada. En el cuerpo de la solicitud, proporciona los datos del traslado en formato JSON. La solicitud debe incluir los siguientes campos:
+
+```json
+{
+  "id": "ID del producto",
+  "cant": "Cantidad a trasladar",
+  "origen": "ID de la bodega de origen",
+  "destino": "ID de la bodega de destino",
+  "id_usuario": "ID del usuario que realiza el traslado"
+}
