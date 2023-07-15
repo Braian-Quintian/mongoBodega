@@ -58,3 +58,38 @@ Para agregar una nueva bodega al sistema, realiza una solicitud POST a la URL me
   "update_by": "ID del usuario que actualiza la bodega"
 }
 ```
+# Router de Productos
+
+El router de productos es una parte del sistema que se encarga de manejar las peticiones relacionadas con los productos. Proporciona endpoints para obtener información sobre los productos, obtener el total de productos y agregar nuevos productos al sistema.
+
+## Cómo consumir el router de productos
+
+### Obtener información de los productos
+
+- **Método:** GET
+- **URL:** `http://127.127.127.127:6000/productos`
+
+Esta solicitud GET se utiliza para obtener información sobre todos los productos registrados en el sistema. Al realizar una solicitud a esta URL, recibirás una respuesta JSON que contiene los datos de los productos.
+
+### Obtener el total de productos
+
+- **Método:** GET
+- **URL:** `http://127.127.127.127:6000/productos/total`
+
+Esta solicitud GET se utiliza para obtener el total de productos en el sistema. Al realizar una solicitud a esta URL, recibirás una respuesta JSON que contiene los datos de los productos junto con su cantidad total.
+
+### Agregar un nuevo producto
+
+- **Método:** POST
+- **URL:** `http://127.127.127.127:6000/productos`
+
+Para agregar un nuevo producto al sistema, realiza una solicitud POST a la URL mencionada. En el cuerpo de la solicitud, proporciona los datos del nuevo producto en formato JSON. La solicitud debe incluir los siguientes campos:
+
+```json
+{
+  "nombre": "Nombre del producto",
+  "descripcion": "Descripción del producto",
+  "estado": "Estado del producto",
+  "creador": "ID del usuario que crea el producto",
+  "actualizador": "ID del usuario que actualiza el producto"
+}
