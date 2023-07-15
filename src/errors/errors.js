@@ -41,7 +41,8 @@ function handleInsufficientQuantityError(res) {
 
 // Función para manejar errores de datos inválidos (Error 400)
 function handleInvalidDataError(res, message) {
-    res.status(400).json({ message });
+    const errorMessage = 'Error de datos inválidos: ' + message; // Agrega un prefijo al mensaje de error
+    res.status(400).json({ message: errorMessage });
 }
 
 // Función para manejar errores de bodega no encontrada (Error 400)
