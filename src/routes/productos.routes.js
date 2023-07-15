@@ -2,7 +2,7 @@ import { plainToClass } from 'class-transformer';
 import { validate } from 'class-validator';
 import { getConnection } from '../../src/connection/conection.js';
 import { ValidateProductos } from '../../controller/productos.js';
-import {handleInternalServerError,handleDuplicateEntryError,handleNoExist,handleMissingDataError} from '../errors/errors.js';
+import { handleInternalServerError, handleDuplicateEntryError, handleNoExist, handleInvalidDataError } from '../errors/errors.js';
 
 const getProductos = async (res) => {
     try {
@@ -19,12 +19,12 @@ const getTotalProductos = async (res) => {
     try {
         const connection = await getConnection();
         const query = `
-      SELECT p.*, SUM(i.cantidad) AS Total
-      FROM productos p
-      JOIN inventarios i ON p.id = i.id_producto
-      GROUP BY p.id
-      ORDER BY Total DESC;
-    `;
+            SELECT p.*, SUM(i.cantidad) AS Total
+            FROM productos p
+            JOIN inventarios i ON p.id = i.id_producto
+            GROUP BY p.id
+            ORDER BY Total DESC;
+        `;
         const [rows] = await connection.query(query);
         res.json(rows);
     } catch (error) {
@@ -37,28 +37,25 @@ const addProductos = async (req, res) => {
         const dataSend = plainToClass(ValidateProductos, req.body);
         const validationErrors = await validate(dataSend);
 
-        if (validationErrors.length > 0 || !dataSend.NOM || !dataSend.DESCRIPCION || !dataSend.ESTADO || !dataSend.CREADOR || !dataSend.ACTUALIZADOR) {
-            return handleMissingDataError(res);
+        if (validationErrors.length > 0) {
+            const errorMessages = validationErrors.map((error) => Object.values(error.constraints)).join(', ');
+            handleInvalidDataError(res, errorMessages);
+            return;
         }
 
         const connection = await getConnection();
 
         const query = `INSERT INTO productos(nombre, descripcion, estado, created_by, update_by) VALUES(?, ?, ?, ?, ?);`;
-        const values = [
-            dataSend.NOM,
-            dataSend.DESCRIPCION,
-            dataSend.ESTADO,
-            dataSend.CREADOR,
-            dataSend.ACTUALIZADOR
-        ];
+        const values = [dataSend.NOM,dataSend.DESCRIPCION,dataSend.ESTADO,dataSend.CREADOR,dataSend.ACTUALIZADOR];
         const result = await connection.query(query, values);
-        const productId = result.insertId;
+        const productId = result[0].insertId;
         const defaultBodegaId = 11; // ID de la bodega por defecto
-
-        const inventoryQuery = `INSERT INTO inventarios(id_bodega, id_producto, created_by, update_by) VALUES (?, ?, ?, ?);`;
+        const defaultCantidad = 1;
+        const inventoryQuery = `INSERT INTO inventarios(id_bodega, id_producto, cantidad, created_by, update_by) VALUES (?, ?, ?, ?, ?);`;
         const inventoryValues = [
             defaultBodegaId,
             productId,
+            defaultCantidad,
             dataSend.CREADOR,
             dataSend.ACTUALIZADOR
         ];
@@ -75,7 +72,6 @@ const addProductos = async (req, res) => {
         }
     }
 };
-
 export const methodsProductos = {
     getProductos,
     getTotalProductos,
