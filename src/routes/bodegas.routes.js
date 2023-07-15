@@ -1,6 +1,6 @@
 import { plainToClass } from 'class-transformer';
 import { validate } from 'class-validator';
-import { validateBodega } from '../../controller/bodegas.js';
+import { ValidateBodega } from '../../controller/bodegas.js';
 import { getConnection } from '../connection/conection.js';
 import { handleInternalServerError, handleDuplicateEntryError, handleInvalidDataError, handleNoExist } from '../errors/errors.js';
 
@@ -17,7 +17,7 @@ const getBodegas = async (req, res) => {
 
 const addBodegas = async (req, res) => {
     try {
-        const dataSend = plainToClass(validateBodega, req.body);
+        const dataSend = plainToClass(ValidateBodega, req.body);
         if (!dataSend.CREADOR) {
             dataSend.CREADOR = dataSend.RESPONSABLE;
         }
