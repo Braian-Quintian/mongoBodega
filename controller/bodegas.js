@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Expose } from "class-transformer";
 import { IsNumber, IsString } from "class-validator";
-export class validateBodega {
+export class ValidateBodega {
     constructor(p1, p2, p3, p4, p5) {
         this.NOM = p1;
         this.RESPONSABLE = p2;
@@ -22,24 +22,24 @@ __decorate([
     Expose({ name: "nombre" }),
     IsString({ message: "Nombre must be a string" }),
     __metadata("design:type", String)
-], validateBodega.prototype, "NOM", void 0);
+], ValidateBodega.prototype, "NOM", void 0);
 __decorate([
     Expose({ name: "id_responsable" }),
     IsNumber({}, { message: "ID Responsable must be a number" }),
     __metadata("design:type", Number)
-], validateBodega.prototype, "RESPONSABLE", void 0);
+], ValidateBodega.prototype, "RESPONSABLE", void 0);
 __decorate([
     Expose({ name: "estado" }),
     IsNumber({}, { message: "Estado must be a number" }),
     __metadata("design:type", Number)
-], validateBodega.prototype, "STATE", void 0);
+], ValidateBodega.prototype, "STATE", void 0);
 __decorate([
     Expose({ name: "created_by" }),
     IsNumber({}, { message: "Created By must be a number" }),
     __metadata("design:type", Number)
-], validateBodega.prototype, "CREADOR", void 0);
+], ValidateBodega.prototype, "CREADOR", void 0);
 __decorate([
     Expose({ name: "update_by" }),
     IsNumber({}, { message: "Update By must be a number" }),
     __metadata("design:type", Number)
-], validateBodega.prototype, "ACTUALIZADOR", void 0);
+], ValidateBodega.prototype, "ACTUALIZADOR", void 0);
