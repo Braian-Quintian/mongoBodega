@@ -93,3 +93,27 @@ Para agregar un nuevo producto al sistema, realiza una solicitud POST a la URL m
   "creador": "ID del usuario que crea el producto",
   "actualizador": "ID del usuario que actualiza el producto"
 }
+```
+# Router de Inventarios
+
+El router de inventarios maneja las peticiones relacionadas con los inventarios de productos en el sistema. Proporciona un endpoint para agregar o actualizar inventarios.
+
+## Cómo consumir el router de inventarios
+
+### Agregar o actualizar un inventario
+
+- **Método:** POST
+- **URL:** `http://127.127.127.127:6000/inventarios`
+
+Para agregar o actualizar un inventario, realiza una solicitud POST a la URL mencionada. En el cuerpo de la solicitud, proporciona los datos del inventario en formato JSON. La solicitud debe incluir los siguientes campos:
+
+```json
+{
+  "id_producto": "ID del producto",
+  "id_bodega": "ID de la bodega",
+  "cantidad": "Cantidad del producto en el inventario"
+}
+```
+El router de inventarios verificará si la combinación de id_producto e id_bodega ya existe en la tabla de inventarios. Si la combinación ya existe, se actualizará la cantidad sumando la cantidad existente con la cantidad nueva. Si es una combinación totalmente nueva, se creará un nuevo registro de inventario con los datos proporcionados.
+
+En caso de éxito, recibirás una respuesta JSON con el mensaje "Inventario actualizado exitosamente" si se actualiza un inventario existente, o "Inventario creado exitosamente" si se crea un nuevo inventario.
