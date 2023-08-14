@@ -1,52 +1,84 @@
 import { plainToClass } from 'class-transformer';
 import { validate } from 'class-validator';
-import { ValidateBodega } from '../../controller/bodegas.js';
-import { getConnection } from '../connection/conection.js';
-import { handleInternalServerError, handleDuplicateEntryError, handleInvalidDataError, handleNoExist } from '../errors/errors.js';
+import { Bodegas } from './validation/bodegas.js';
+import { connect } from '../connection/connection.js'
+const db = await connect();
 
 const getBodegas = async (req, res) => {
+    if(!req.rateLimit) return;
     try {
-        const connection = await getConnection();
-        const query = 'SELECT * FROM bodegas ORDER BY nombre';
-        const [rows] = await connection.query(query);
-        res.json(rows);
+        let bodegas = db.collection("Bodega");
+        let result = await bodegas.find().toArray();
+        const transformedResult = result.map(item => ({
+            _id: item._id,
+            'id-bodega': item.id,
+            'nombre-bodega': item.Nombre,
+            'responsable-bodega': item.id_responsable,
+            'estado-bodega': item.estado,
+            'created-by': item.created_by,
+            'update-by': item.update_by,
+            'created-at': item.created_at,
+            'updated-at': item.update_at,
+            'deleted-at': item.deleted_at
+        }));
+        res.json(transformedResult);
     } catch (error) {
-        handleInternalServerError(error, res);
+        res.status(500).json({ message: error.message });
     }
 };
 
 const addBodegas = async (req, res) => {
+    if (!req.rateLimit) return;
     try {
-        const dataSend = plainToClass(ValidateBodega, req.body);
-        if (!dataSend.CREADOR) {
-            dataSend.CREADOR = dataSend.RESPONSABLE;
+        const dataSend = plainToClass(Bodegas, req.body); 
+        const validationErrors = await validate(dataSend);
+        if (!dataSend.Creador) {
+            dataSend.Creador = dataSend.Responsable;
         }
-        if (!dataSend.ACTUALIZADOR) {
-            dataSend.ACTUALIZADOR = dataSend.RESPONSABLE;
+        if (!dataSend.Update) {
+            dataSend.Update = dataSend.Responsable;
         }
 
-        const validationErrors = await validate(dataSend);
+        if(!dataSend.Created_at){
+            dataSend.Created_at = new Date();
+        }
+
+        if(!dataSend.Update_at){
+            dataSend.Update_at = new Date();
+        }
+
+        if(!dataSend.Deleted_at){
+            dataSend.Deleted_at = null;
+        }
 
         if (validationErrors.length > 0) {
-            const errorMessages = validationErrors.map((error) => Object.values(error.constraints)).join(', ');
-            handleInvalidDataError(res, errorMessages);
+            const errorMessages = validationErrors.map(error => {
+                const field = error.property;
+                const description = dataSend.constructor.schema.properties[field].description;
+                return `${description}: ${Object.values(error.constraints).join(', ')}`;
+            });
+            res.status(400).json({ message: "Error de validación", errors: errorMessages });    
             return;
         }
 
-        const connection = await getConnection();
-
-        const query = `INSERT INTO bodegas(nombre, id_responsable, estado, created_by, update_by) VALUES(?, ?, ?, ?, ?);`;
-        const values = [dataSend.NOM, dataSend.RESPONSABLE, dataSend.STATE, dataSend.CREADOR, dataSend.ACTUALIZADOR];
-        await connection.query(query, values);
-        res.json({ message: 'Bodega added successfully' });
+        let bodegas = db.collection("Bodega");
+        let dataArray = [dataSend.ID_Bodega, dataSend.Nombre, dataSend.Responsable, dataSend.Estado,dataSend.Creador, dataSend.Update,dataSend.Created_at,dataSend.Update_at,dataSend.Deleted_at]
+        const document = {
+            id: dataArray[0],
+            Nombre: dataArray[1],
+            id_responsable: dataArray[2],
+            estado: dataArray[3],
+            created_by: dataArray[4],
+            update_by: dataArray[5],
+            created_at: dataArray[6],
+            update_at: dataArray[7],
+            deleted_at: dataArray[8]
+        };
+        
+        const result = await bodegas.insertOne(document);
+        res.json(result);
     } catch (error) {
-        if (error.code === 'ER_DUP_ENTRY') {
-            handleDuplicateEntryError(res);
-        } else if (error.code === 'ER_NO_REFERENCED_ROW_2') {
-            handleNoExist(res);
-        } else {
-            handleInternalServerError(error, res);
-        }
+        res.status(500).json({ message: error });
     }
 };
  
