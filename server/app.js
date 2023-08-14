@@ -1,18 +1,15 @@
 import express from 'express';
-import { router as bodegasRouter } from '../src/middleware/bodegas.js'
-import { router as productosRouter } from '../src/middleware/productos.js'
-import { router as inventariosRouter } from '../src/middleware/inventarios.js'
-import { router as trasladosRouter } from '../src/middleware/trasladar.js'
+import { limitGet } from '../src/rules/reglas.js';
+import { dynamicRouter } from './dynamicRouter.js';
+import { autenticacion } from '../src/security/keys/autenticacion.js';
+import { verifyToken } from '../src/security/keys/verifyToken.js';
 import { handleInternalServerError } from '../src/errors/errors.js';
 const app = express();
 app.use(express.json());
 
-app.use('/bodegas', bodegasRouter);
-app.use('/productos', productosRouter);
-app.use('/inventarios', inventariosRouter);
-app.use('/traslados', trasladosRouter);
+app.get('/autorizacion/:id', autenticacion);
+app.use('/:collection', limitGet() , verifyToken, dynamicRouter);
 
-app.use((err, res) => {
-    handleInternalServerError(err, res);
-});
+app.use((err, res) => { handleInternalServerError(err, res)});
+
 export default app;
