@@ -128,6 +128,14 @@
 
   Se pueden utilizar los siguientes endpoints para la collection `bodegas`
 
+  - GET /bodegas: muestra todas las bodegas en la base de datos
+  
+  ![get-bodegas](/assets/img/GET-bodegas.png)
+
+  - POST /bodegas: crea una nueva bodega en la base de datos
+
+  ![post-bodegas](/assets/img/POST-bodegas.png)
+
 ## Router de Bodegas
 
 El router de bodegas maneja las peticiones relacionadas con las bodegas. Proporciona endpoints para obtener información sobre las bodegas y agregar nuevas bodegas al sistema.
