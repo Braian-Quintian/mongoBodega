@@ -79,3 +79,103 @@ db.Bodega.insertMany([
 {"id":49,"Nombre":'Bodega Anderson Atuesta555',"id_responsable": 11,"estado": 11,"created_by": null,"update_by": null,"created_at":'2022-07-21 21:27:13', "update_at":  '2022-07-21 21:27:13',"deleted_at": null},
 {"id":50,"Nombre":'A Bodega',"id_responsable": 11,"estado": 1, "created_by":null,"update_by": null, "created_at":'2023-05-25 01:02:57', "update_at": '2023-05-25 01:02:57',"deleted_at": null}
 ]);
+
+use("db_endpoints_bodega");
+db.createCollection("Productos", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["id", "Nombre", "Descripcion","estado"],
+            additionalProperties: true,
+            properties: {
+                id: {
+                    bsonType: "int",
+                    description: "Campo obligatorio y debe ser un entero."
+                },
+                Nombre: {
+                    bsonType: "string",
+                    description: "Campo obligatorio y debe ser una cadena de texto."
+                },
+                Descripcion: {
+                    bsonType: "string",
+                    description: "Campo obligatorio y debe ser un entero."
+                },
+                estado: {
+                    bsonType: "int",
+                    description: "Campo obligatorio y debe ser un entero."
+                },
+                created_by: {
+                    bsonType: ["int", "null"],
+                    description: "Campo opcional y debe ser un entero o nulo."
+                },
+                update_by: {
+                    bsonType: ["int", "null"],
+                    description: "Campo opcional y debe ser un entero o nulo."
+                },
+                created_at: {
+                    bsonType: ["string", "null"],
+                    description: "Campo opcional y debe ser una fecha o nulo."
+                },
+                update_at: {
+                    bsonType: ["string", "null"],
+                    description: "Campo opcional y debe ser una fecha o nulo."
+                },
+                deleted_at: {
+                    bsonType: ["string", "null"],
+                    description: "Campo opcional y debe ser una fecha o nulo."
+                }
+            }
+        }
+    }
+})
+
+use("db_endpoints_bodega");
+db.Productos.insertMany([
+{"id" : 11,"Nombre": 'producto0',                 "Descripcion": 'producto0',          "estado":1,"created_by": 16,  "update_by": null,  "created_at": null,                  "updated_at" : null, "deleted_at": null},
+{"id" : 12,"Nombre": 'producto1',                 "Descripcion": 'producto1',          "estado":1,"created_by": 14,  "update_by": null,  "created_at": null,                  "updated_at" : null, "deleted_at": null},
+{"id" : 13,"Nombre": 'producto2',                 "Descripcion": 'producto2',          "estado":1,"created_by": 13,  "update_by": null,  "created_at": null,                  "updated_at" : null, "deleted_at": null},
+{"id" : 14,"Nombre": 'producto3',                 "Descripcion": 'producto3',          "estado":1,"created_by": 20,  "update_by": null,  "created_at": null,                  "updated_at" : null, "deleted_at": null},
+{"id" : 15,"Nombre": 'producto4',                 "Descripcion": 'producto4',          "estado":1,"created_by": 19,  "update_by": null,  "created_at": null,                  "updated_at" : null, "deleted_at": null},
+{"id" : 16,"Nombre": 'producto5',                 "Descripcion": 'producto5',          "estado":1,"created_by": 11,  "update_by": null,  "created_at": null,                  "updated_at" : null, "deleted_at": null},
+{"id" : 17,"Nombre": 'producto6',                 "Descripcion": 'producto6',          "estado":1,"created_by": 12,  "update_by": null,  "created_at": null,                  "updated_at" : null, "deleted_at": null},
+{"id" : 18,"Nombre": 'producto7',                 "Descripcion": 'producto7',          "estado":1,"created_by": 11,  "update_by": null,  "created_at": null,                  "updated_at" : null, "deleted_at": null},
+{"id" : 19,"Nombre": 'producto8',                 "Descripcion": 'producto8',          "estado":1,"created_by": 11,  "update_by": null,  "created_at": null,                  "updated_at" : null, "deleted_at": null},
+{"id" : 20,"Nombre": 'producto9',                 "Descripcion": 'producto9',          "estado":1,"created_by": 19,  "update_by": null,  "created_at": null,                  "updated_at" : null, "deleted_at": null},
+{"id" : 23,"Nombre": 'get chocolatinas',          "Descripcion": 'chocolate',          "estado":1,"created_by": null,"update_by": null,  "created_at": '2022-06-03 00:33:43', "updated_at" :'2022-06-03 00:33:43', "deleted_at": null},
+{"id" : 24,"Nombre": 'lololol',                   "Descripcion": 'chocolate',          "estado":1,"created_by": null,"update_by": null,  "created_at": '2022-06-03 00:36:44', "updated_at" :'2022-06-03 00:36:44', "deleted_at": null},
+{"id" : 25,"Nombre": 'sadasdasd',                 "Descripcion": 'chocolate',          "estado":1,"created_by": null,"update_by": null,  "created_at": '2022-06-03 00:37:56', "updated_at" :'2022-06-03 00:37:56', "deleted_at": null},
+{"id" : 26,"Nombre": 'milo',                      "Descripcion": '500 kg',             "estado":1,"created_by": null,"update_by": null,  "created_at": '2022-06-03 00:40:11', "updated_at" :'2022-06-03 00:40:11', "deleted_at": null},
+{"id" : 27,"Nombre": 'chocolisto',                "Descripcion": 'jjjjjj',             "estado":1,"created_by": null,"update_by": null,  "created_at": '2022-06-03 00:40:43', "updated_at" :'2022-06-03 00:40:43', "deleted_at": null},
+{"id" : 28,"Nombre": 'Leche',                     "Descripcion": 'deslactosada',       "estado":1,"created_by": null,"update_by": null,  "created_at": '2022-06-03 00:49:21', "updated_at" :'2022-06-03 00:49:21', "deleted_at": null},
+{"id" : 29,"Nombre": 'yogurt',                    "Descripcion": 'frescaleche',        "estado":1,"created_by": null,"update_by": null,  "created_at": '2022-06-03 01:44:09', "updated_at" :'2022-06-03 01:44:09', "deleted_at": null},
+{"id" : 30,"Nombre": 'cocacola',                  "Descripcion": 'coca cola',          "estado":1,"created_by": null,"update_by": null,  "created_at": '2022-06-03 03:01:54', "updated_at" :'2022-06-03 03:01:54', "deleted_at": null},
+{"id" : 31,"Nombre": 'pepsi',                     "Descripcion": 'copia',              "estado":1,"created_by": null,"update_by": null,  "created_at": '2022-06-03 03:19:58', "updated_at" :'2022-06-03 03:19:58', "deleted_at": null},
+{"id" : 32,"Nombre": 'postobon',                  "Descripcion": 'manzana',            "estado":1,"created_by": null,"update_by": null,  "created_at": '2022-06-03 03:33:46', "updated_at" :'2022-06-03 03:33:46', "deleted_at": null},
+{"id" : 33,"Nombre": 'gaseosa',                   "Descripcion": 'sadasd',             "estado":1,"created_by": null,"update_by": null,  "created_at": '2022-06-03 03:44:25', "updated_at" :'2022-06-03 03:44:25', "deleted_at": null},
+{"id" : 34,"Nombre": 'asdasd',                    "Descripcion": 'dfdfssdf',           "estado":1,"created_by": null,"update_by": null,  "created_at": '2022-06-03 03:48:25', "updated_at" :'2022-06-03 03:48:25', "deleted_at": null},
+{"id" : 35,"Nombre": 'producto fg 1',             "Descripcion": 'producto prueba fg', "estado":1,"created_by": 11,  "update_by": null,  "created_at": '2022-06-29 03:22:05', "updated_at" :'2022-06-29 03:22:05', "deleted_at": null},
+{"id" : 36,"Nombre": 'producto fg 2',             "Descripcion": 'producto prueba fg', "estado":1,"created_by": 11,  "update_by": null,  "created_at": '2022-06-29 03:27:10', "updated_at" :'2022-06-29 03:27:10', "deleted_at": null},
+{"id" : 37,"Nombre": 'producto fg 3',             "Descripcion": 'producto prueba fg', "estado":1,"created_by": 11,  "update_by": null,  "created_at": '2022-06-29 03:44:36', "updated_at" :'2022-06-29 03:44:36', "deleted_at": null},
+{"id" : 39,"Nombre": 'Dulces',                    "Descripcion": 'Ricos dulces',       "estado":1,"created_by": 11,  "update_by": null,  "created_at": '2022-07-01 17:34:12', "updated_at" :null, "deleted_at":null},
+{"id" : 40,"Nombre": 'Caramelos',                 "Descripcion": 'Dulces y mas',       "estado":1,"created_by": 11,  "update_by": null,  "created_at": '2022-07-01 17:37:06', "updated_at" :null, "deleted_at":null},
+{"id" : 41,"Nombre": 'gato',                      "Descripcion": 'comidad de gato',    "estado":1,"created_by": 11,  "update_by": null,  "created_at": '2022-07-11 14:22:47', "updated_at" :null, "deleted_at":null},
+{"id" : 42,"Nombre": 'gato1',                     "Descripcion": 'comidad de gato',    "estado":1,"created_by": 13,  "update_by": null,  "created_at": '2022-07-11 19:26:27', "updated_at" :'2022-07-11 19:26:27', "deleted_at" :null},
+{"id" : 43,"Nombre": 'whiskas',                   "Descripcion": 'comidad de gato',    "estado":1,"created_by": 13,  "update_by": null,  "created_at": '2022-07-11 19:28:27', "updated_at" :'2022-07-11 19:28:27', "deleted_at" :null},
+{"id" : 44,"Nombre": 'whiskas1',                  "Descripcion": 'comidad de gato',    "estado":1,"created_by": 13,  "update_by": null,  "created_at": '2022-07-11 19:29:42', "updated_at" :'2022-07-11 19:29:42', "deleted_at" :null},
+{"id" : 45,"Nombre": 'whiskas2',                  "Descripcion": 'comidad de gato',    "estado":1,"created_by": 13,  "update_by": null,  "created_at": '2022-07-11 19:32:42', "updated_at" :'2022-07-11 19:32:42', "deleted_at" :null},
+{"id" : 46,"Nombre": 'whiskas3',                  "Descripcion": 'comidad de gato',    "estado":1,"created_by": 13,  "update_by": null,  "created_at": '2022-07-11 19:32:44', "updated_at" :'2022-07-11 19:32:44', "deleted_at" :null},
+{"id" : 47,"Nombre": 'whiskas4',                  "Descripcion": 'comidad de gato',    "estado":1,"created_by": 13,  "update_by": null,  "created_at": '2022-07-11 19:32:45', "updated_at" :'2022-07-11 19:32:45', "deleted_at" :null},
+{"id" : 48,"Nombre": 'whiskas5',                  "Descripcion": 'comidad de gato',    "estado":1,"created_by": 13,  "update_by": null,  "created_at": '2022-07-11 19:32:45', "updated_at" :'2022-07-11 19:32:45', "deleted_at" :null},
+{"id" : 49,"Nombre": 'whiskas6',                  "Descripcion": 'comidad de gato',    "estado":1,"created_by": 13,  "update_by": null,  "created_at": '2022-07-11 19:33:42', "updated_at" :'2022-07-11 19:33:42', "deleted_at" :null},
+{"id" : 50,"Nombre": 'whiskas7',                  "Descripcion": 'comidad de gato',    "estado":1,"created_by": 13,  "update_by": null,  "created_at": '2022-07-11 19:42:53', "updated_at" :'2022-07-11 19:42:53', "deleted_at" :null},
+{"id" : 51,"Nombre": 'whiskas8',                  "Descripcion": 'comidad de gato',    "estado":1,"created_by": 13,  "update_by": null,  "created_at": '2022-07-11 19:43:52', "updated_at" :'2022-07-11 19:43:52', "deleted_at" :null},
+{"id" : 52,"Nombre": 'whiskas9',                  "Descripcion": 'comidad de gato',    "estado":1,"created_by": 13,  "update_by": null,  "created_at": '2022-07-11 19:44:12', "updated_at" :'2022-07-11 19:44:12', "deleted_at" :null},
+{"id" : 53,"Nombre": 'whiskas10',                 "Descripcion": 'comidad de gato',    "estado":1,"created_by": 13,  "update_by": null,  "created_at": '2022-07-11 19:44:57', "updated_at" :'2022-07-11 19:44:57', "deleted_at" :null},
+{"id" : 54,"Nombre": 'whiskas11',                 "Descripcion": 'comidad de gato',    "estado":1,"created_by": 13,  "update_by": null,  "created_at": '2022-07-11 19:47:25', "updated_at" :'2022-07-11 19:47:25', "deleted_at" :null},
+{"id" : 55,"Nombre": 'dog food',                  "Descripcion": 'comida de perro',    "estado":1,"created_by": 13,  "update_by": null,  "created_at": '2022-07-11 20:55:42', "updated_at" :'2022-07-11 20:55:42', "deleted_at" :null},
+{"id" : 57,"Nombre": 'Producto Anderson Atuesta1',"Descripcion": 'Esta es una prueba', "estado":1,"created_by": 11,  "update_by": null,  "created_at": '2022-07-21 20:34:37', "updated_at" :'2022-07-21 20:34:37', "deleted_at" :null},
+{"id" : 56,"Nombre": 'Producto Anderson Atuesta', "Descripcion": 'Esta es una prueba', "estado":1,"created_by": 11,  "update_by": null,  "created_at": '2022-07-21 20:33:00', "updated_at" :'2022-07-21 20:33:00', "deleted_at" :null},
+{"id" : 58,"Nombre": 'Producto Anderson Atuest2', "Descripcion": 'Esta es una prueba', "estado":1,"created_by": 11,  "update_by": null,  "created_at": '2022-07-21 20:38:17', "updated_at" :'2022-07-21 20:38:17', "deleted_at" :null},
+{"id" : 59,"Nombre": 'Producto Anderson Atuesta3',"Descripcion": 'Esta es una prueba', "estado":1,"created_by": 11,  "update_by": null,  "created_at": '2022-07-21 20:49:42', "updated_at" :'2022-07-21 20:49:42', "deleted_at" :null},
+{"id" : 60,"Nombre": 'Pringles',                  "Descripcion": 'papas fritas',       "estado":1,"created_by": null,"update_by": null,  "created_at": '2023-05-25 03:52:26', "updated_at" :'2023-05-25 03:52:26', "deleted_at" :null}
+]);
