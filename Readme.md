@@ -136,6 +136,14 @@
 
   ![post-bodegas](/assets/img/POST-bodegas.png)
 
+- Productos
+
+  Se pueden utilizar los siguientes endpoints para la collection `productos`
+
+  - GET /productos: muestra todos los productos en la base de datos
+
+  ![get-productos](/assets/img/GET-productos.png)
+
 ## Router de Bodegas
 
 El router de bodegas maneja las peticiones relacionadas con las bodegas. Proporciona endpoints para obtener información sobre las bodegas y agregar nuevas bodegas al sistema.
