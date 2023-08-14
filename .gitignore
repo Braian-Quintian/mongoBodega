@@ -1,1 +1,5 @@
-/storage
+/node_modules
+package-lock.json
+.env
+tsconfig.json
+/src/routes/validation/
