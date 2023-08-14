@@ -9,6 +9,7 @@ const getProductos = async (req,res) => {
     try {
         let productos = db.collection("Productos");
         let result = await productos.find().toArray();
+
         const transformedResult = result.map(item => ({
             _id: item._id,
             'id-producto': item.id,
@@ -27,45 +28,44 @@ const getProductos = async (req,res) => {
     }
 };
 
-const getTotalProductos = async (res) => {
+const getTotalProductos = async (req,res) => {
+    if(!req.rateLimit) return;
     try {
-        const collectionProductos = db.collection('productos');
-        const collectionInventarios = db.collection('inventarios');
-        
-        const pipeline = [
+        let productos = db.collection("Productos");
+        let result = await productos.aggregate([
             {
                 $lookup: {
-                    from: 'inventarios',
-                    localField: 'id',
-                    foreignField: 'id_producto',
-                    as: 'inventarios'
-                }
+                from: "Inventarios",
+                localField: "id",
+                foreignField: "id_producto",
+                as: "Inventarios",
+                },
             },
             {
-                $unwind: '$inventarios'
+                $unwind: "$Inventarios",
             },
             {
                 $group: {
-                    _id: '$_id',
-                    Total: { $sum: '$inventarios.cantidad' },
-                    producto: { $first: '$$ROOT' }
-                }
+                _id: "$id",
+                Nombre: { $first: "$Nombre" },
+                total_cantidad: { $sum: "$Inventarios.cantidad" },
+                },
             },
             {
-                $replaceRoot: { newRoot: '$producto' }
-            },
-            {
-                $sort: { Total: -1 }
+                $sort: { total_cantidad: 1 } // Orden de menor a mayor por el campo "total_cantidad"
             }
-        ];
-
-        const result = await collectionProductos.aggregate(pipeline).toArray();
-        res.json(result);
+        ]).toArray();
+        const transformedResult = result.map(item => ({
+            _id: item._id,
+            'id-producto': item.id,
+            'nombre-producto': item.Nombre,
+            'total-cantidad': item.total_cantidad
+        }));
+        res.json(transformedResult);
     } catch (error) {
         handleInternalServerError(error, res);
     }
 };
-
 
 const addProductos = async (req, res) => {
     try {
