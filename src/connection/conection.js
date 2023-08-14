@@ -1,30 +1,13 @@
-import mysql from 'mysql2/promise';
-import credentials from './credentials.js';
+import { MongoClient } from "mongodb";
+import credentials from "./credentials.js";
 
-let pool = null;
-
-async function createPool() {
-    pool = await mysql.createPool({
-        host: credentials.host,
-        user: credentials.user,
-        password: credentials.password,
-        database: credentials.database,
-        waitForConnections: true,
-        connectionLimit: 10,
-        queueLimit: 0
-    });
-
-    console.log('Conexión exitosa a la base de datos');
-    return pool;
-}
-
-export async function getConnection() {
+export async function connect() {
     try {
-        return pool && !pool._closed ? pool : await createPool();
+        const uri = `mongodb+srv://${credentials.userDB}:${credentials.passDB}@${credentials.cluster}.mongodb.net/${credentials.dbDB}`;
+        const options = { useNewUrlParser: true, useUnifiedTopology: true };
+        const client = await MongoClient.connect(uri, options);
+        return client.db();
     } catch (error) {
-        console.error('Error al establecer la conexión:', error);
-        throw new Error('Database Connection Error');
+        return { status: 500, message: error.message };
     }
 }
-
-export default getConnection;
