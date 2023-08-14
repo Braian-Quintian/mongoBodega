@@ -124,7 +124,7 @@
     
   `NOTA`: Los endpoints tienen un limite de peticiones por minuto, si se excede el limite de peticiones por minuto, el servidor respondera con un error 429, si esto sucede, espera un minuto y vuelve a intentarlo.
 
-- Bodegas
+- **Bodegas**
 
   Se pueden utilizar los siguientes endpoints para la collection `bodegas`
 
@@ -136,7 +136,7 @@
 
   ![post-bodegas](/assets/img/POST-bodegas.png)
 
-- Productos
+- **Productos**
 
   Se pueden utilizar los siguientes endpoints para la collection `productos`
 
