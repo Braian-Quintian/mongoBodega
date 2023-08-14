@@ -1,36 +1,71 @@
 import { plainToClass } from 'class-transformer';
 import { validate } from 'class-validator';
-import { getConnection } from '../../src/connection/conection.js';
-import { ValidateProductos } from '../../controller/productos.js';
-import { handleInternalServerError, handleDuplicateEntryError, handleNoExist, handleInvalidDataError } from '../errors/errors.js';
+import { Productos } from './validation/productos.js';
+import { connect } from '../connection/connection.js'
+const db = await connect();
 
-const getProductos = async (res) => {
+const getProductos = async (req,res) => {
+    if(!req.rateLimit) return;
     try {
-        const connection = await getConnection();
-        const query = 'SELECT * FROM productos ORDER BY nombre';
-        const [rows] = await connection.query(query);
-        res.json(rows);
+        let productos = db.collection("Productos");
+        let result = await productos.find().toArray();
+        const transformedResult = result.map(item => ({
+            _id: item._id,
+            'id-producto': item.id,
+            'nombre-producto': item.Nombre,
+            'descripcion-producto': item.Descripcion,
+            'estado-producto': item.estado,
+            'created-by': item.created_by,
+            'update-by': item.update_by,
+            'created-at': item.created_at,
+            'updated-at': item.update_at,
+            'deleted-at': item.deleted_at
+        }));
+        res.json(transformedResult);
     } catch (error) {
-        handleInternalServerError(error, res);
+        res.status(500).json({ message: error.message });
     }
 };
 
 const getTotalProductos = async (res) => {
     try {
-        const connection = await getConnection();
-        const query = `
-            SELECT p.*, SUM(i.cantidad) AS Total
-            FROM productos p
-            JOIN inventarios i ON p.id = i.id_producto
-            GROUP BY p.id
-            ORDER BY Total DESC;
-        `;
-        const [rows] = await connection.query(query);
-        res.json(rows);
+        const collectionProductos = db.collection('productos');
+        const collectionInventarios = db.collection('inventarios');
+        
+        const pipeline = [
+            {
+                $lookup: {
+                    from: 'inventarios',
+                    localField: 'id',
+                    foreignField: 'id_producto',
+                    as: 'inventarios'
+                }
+            },
+            {
+                $unwind: '$inventarios'
+            },
+            {
+                $group: {
+                    _id: '$_id',
+                    Total: { $sum: '$inventarios.cantidad' },
+                    producto: { $first: '$$ROOT' }
+                }
+            },
+            {
+                $replaceRoot: { newRoot: '$producto' }
+            },
+            {
+                $sort: { Total: -1 }
+            }
+        ];
+
+        const result = await collectionProductos.aggregate(pipeline).toArray();
+        res.json(result);
     } catch (error) {
         handleInternalServerError(error, res);
     }
 };
+
 
 const addProductos = async (req, res) => {
     try {

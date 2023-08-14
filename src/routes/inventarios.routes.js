@@ -1,7 +1,8 @@
 import { plainToClass } from 'class-transformer';
 import { validate } from 'class-validator';
-import {ValidateInventarios} from '../../controller/inventarios.js';
-import { getConnection } from '../../src/connection/conection.js';
+// import {ValidateInventarios} from './validation/inventarios.validation.js';
+import { connect } from '../connection/connection.js'
+const db = await connect();
 import { handleInternalServerError, handleDuplicateEntryError, handleInvalidDataError } from '../errors/errors.js';
 
 const addInventarios = async (req, res) => {

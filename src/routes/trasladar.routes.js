@@ -1,7 +1,8 @@
 import { plainToClass } from 'class-transformer';
 import { validate } from 'class-validator';
-import { getConnection } from '../../src/connection/conection.js';
-import { ValidateTraslado } from '../../controller/trasladar.js';
+// import { ValidateTraslado } from './validation/traslados.validation.js';
+import { connect } from '../connection/connection.js'
+const db = await connect();
 import { handleInternalServerError, handleNoExist, handleInvalidDataError, handleInsufficientQuantityError, handleMissingDataError } from '../errors/errors.js';
 
 const addTraslados = async (req, res) => {
