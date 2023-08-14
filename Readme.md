@@ -144,6 +144,12 @@
 
   ![get-productos](/assets/img/GET-productos.png)
 
+  - GET /productos/total: muestra el total de productos en la base de datos de menor cantidad a mayor
+
+  ![get-productos-total](/assets/img/GET-productos-total.png)
+
+  
+
 ## Router de Bodegas
 
 El router de bodegas maneja las peticiones relacionadas con las bodegas. Proporciona endpoints para obtener información sobre las bodegas y agregar nuevas bodegas al sistema.
