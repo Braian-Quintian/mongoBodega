@@ -1,6 +1,6 @@
 import { plainToClass } from 'class-transformer';
 import { validate } from 'class-validator';
-import { Bodegas } from './validation/bodegas.js';
+import { BodegasP, BodegasG } from './validation/bodegas.js';
 import { connect } from '../connection/connection.js'
 const db = await connect();
 
@@ -9,19 +9,8 @@ const getBodegas = async (req, res) => {
     try {
         let bodegas = db.collection("Bodega");
         let result = await bodegas.find().toArray();
-        const transformedResult = result.map(item => ({
-            _id: item._id,
-            'id-bodega': item.id,
-            'nombre-bodega': item.Nombre,
-            'responsable-bodega': item.id_responsable,
-            'estado-bodega': item.estado,
-            'created-by': item.created_by,
-            'update-by': item.update_by,
-            'created-at': item.created_at,
-            'updated-at': item.update_at,
-            'deleted-at': item.deleted_at
-        }));
-        res.json(transformedResult);
+        let data = plainToClass(BodegasG, result, {excludeExtraneousValues: true});
+        res.json(data);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -30,7 +19,7 @@ const getBodegas = async (req, res) => {
 const addBodegas = async (req, res) => {
     if (!req.rateLimit) return;
     try {
-        const dataSend = plainToClass(Bodegas, req.body); 
+        const dataSend = plainToClass(BodegasP, req.body); 
         const validationErrors = await validate(dataSend);
         if (!dataSend.Creador) {
             dataSend.Creador = dataSend.Responsable;
@@ -74,7 +63,6 @@ const addBodegas = async (req, res) => {
             update_at: dataArray[7],
             deleted_at: dataArray[8]
         };
-        
         const result = await bodegas.insertOne(document);
         res.json(result);
     } catch (error) {

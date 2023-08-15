@@ -1,6 +1,6 @@
 import { plainToClass } from 'class-transformer';
 import { validate } from 'class-validator';
-import { Productos } from './validation/productos.js';
+import { ProductosG } from './validation/productos.js';
 import { connect } from '../connection/connection.js'
 const db = await connect();
 
@@ -9,20 +9,8 @@ const getProductos = async (req,res) => {
     try {
         let productos = db.collection("Productos");
         let result = await productos.find().toArray();
-
-        const transformedResult = result.map(item => ({
-            _id: item._id,
-            'id-producto': item.id,
-            'nombre-producto': item.Nombre,
-            'descripcion-producto': item.Descripcion,
-            'estado-producto': item.estado,
-            'created-by': item.created_by,
-            'update-by': item.update_by,
-            'created-at': item.created_at,
-            'updated-at': item.update_at,
-            'deleted-at': item.deleted_at
-        }));
-        res.json(transformedResult);
+        let data = plainToClass(ProductosG, result, { excludeExtraneousValues: true})
+        res.json(data);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
