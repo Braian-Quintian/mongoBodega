@@ -1,6 +1,6 @@
 import { plainToClass } from 'class-transformer';
 import { validate } from 'class-validator';
-import { ProductosG } from './validation/productos.js';
+import { ProductosG,ProductosGT,ProductosP } from './validation/productos.js';
 import { connect } from '../connection/connection.js'
 const db = await connect();
 
@@ -40,59 +40,60 @@ const getTotalProductos = async (req,res) => {
                 },
             },
             {
-                $sort: { total_cantidad: 1 } // Orden de menor a mayor por el campo "total_cantidad"
+                $sort: { total_cantidad: 1 }
             }
         ]).toArray();
-        const transformedResult = result.map(item => ({
-            _id: item._id,
-            'id-producto': item.id,
-            'nombre-producto': item.Nombre,
-            'total-cantidad': item.total_cantidad
-        }));
-        res.json(transformedResult);
+        let data = plainToClass(ProductosGT, result, { excludeExtraneousValues: true})
+        res.json(data);
     } catch (error) {
-        handleInternalServerError(error, res);
+        res.status(500).json({ message: error.message });
     }
 };
 
 const addProductos = async (req, res) => {
+    if(!req.rateLimit) return;
     try {
-        const dataSend = plainToClass(ValidateProductos, req.body);
+        const dataSend = plainToClass(ProductosP, req.body);
         const validationErrors = await validate(dataSend);
 
+        if (!dataSend.Creador) {
+            dataSend.Creador = dataSend.Responsable;
+        }
+        if (!dataSend.Update) {
+            dataSend.Update = dataSend.Responsable;
+        }
+
+        if(!dataSend.Created_at){
+            dataSend.Created_at = (new Date()).toISOString();
+        }
+
+        if(!dataSend.Update_at){
+            dataSend.Update_at = (new Date()).toISOString();
+        }
+
+        if(!dataSend.Deleted_at){
+            dataSend.Deleted_at = null;
+        }
+
         if (validationErrors.length > 0) {
-            const errorMessages = validationErrors.map((error) => Object.values(error.constraints)).join(', ');
-            handleInvalidDataError(res, errorMessages);
+            const errorMessages = validationErrors.map(error => {
+                const field = error.property;
+                const description = dataSend.constructor.schema.properties[field].description;
+                return `${description}: ${Object.values(error.constraints).join(', ')}`;
+            });
+            res.status(400).json({ message: "Error de validación", errors: errorMessages });    
             return;
         }
 
-        const connection = await getConnection();
+        let bodegas = db.collection("Productos");
+        let dataArray = [dataSend.ID_Bodega, dataSend.Nombre, dataSend.Responsable, dataSend.Estado,dataSend.Creador, dataSend.Update,dataSend.Created_at,dataSend.Update_at,dataSend.Deleted_at]
 
-        const query = `INSERT INTO productos(nombre, descripcion, estado, created_by, update_by) VALUES(?, ?, ?, ?, ?);`;
-        const values = [dataSend.NOM,dataSend.DESCRIPCION,dataSend.ESTADO,dataSend.CREADOR,dataSend.ACTUALIZADOR];
-        const result = await connection.query(query, values);
-        const productId = result[0].insertId;
-        const defaultBodegaId = 11; // ID de la bodega por defecto
-        const defaultCantidad = 1;
-        const inventoryQuery = `INSERT INTO inventarios(id_bodega, id_producto, cantidad, created_by, update_by) VALUES (?, ?, ?, ?, ?);`;
-        const inventoryValues = [
-            defaultBodegaId,
-            productId,
-            defaultCantidad,
-            dataSend.CREADOR,
-            dataSend.ACTUALIZADOR
-        ];
-        await connection.query(inventoryQuery, inventoryValues);
-
+        const document = {
+            
+        }
         res.json({ message: 'Producto added successfully' });
     } catch (error) {
-        if (error.code === 'ER_DUP_ENTRY') {
-            return handleDuplicateEntryError(res);
-        } else if (error.code === 'ER_NO_REFERENCED_ROW_2') {
-            return handleNoExist(res);
-        } else {
-            return handleInternalServerError(error, res);
-        }
+        res.status(500).json({ message: error.message });
     }
 };
 export const methodsProductos = {
