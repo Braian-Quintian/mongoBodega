@@ -60,7 +60,6 @@ export class BodegasG {
 export class BodegasP {
     
     @Expose({name: "id-bodega"})
-    @ValidateIf(o => o.ID_Bodega !== undefined)
     @IsNotEmpty({ message: () => { throw { status: 422, message: "The id-bodega cannot be empty" } } })
     @IsDefined({ message: () => { throw { status: 422, message: "The id-bodega is required" } } })
     @IsNumber({}, { message: () => { throw { status: 406, message: "The id-bodega must be a number" } } })
@@ -68,7 +67,6 @@ export class BodegasP {
     ID_Bodega: number
 
     @Expose({name: 'nombre-bodega'})
-    @ValidateIf(o => o.Nombre !== undefined)
     @IsNotEmpty({ message: () => { throw { status: 422, message: "The nombre-bodega cannot be empty" } } })
     @IsDefined({ message: () => { throw { status: 422, message: "The nombre-bodega is required" } } })
     @MaxLength(25, { message: () => { throw { status: 406, message: "The nombre-bodega cannot contain more than 25 characters"}}})
@@ -76,7 +74,6 @@ export class BodegasP {
     Nombre: string;
 
     @Expose({name: "responsable-bodega"})
-    @ValidateIf(o => o.Responsable !== undefined)
     @IsNotEmpty({ message: () => { throw { status: 422, message: "The responsable-bodega cannot be empty" } } })
     @IsDefined({ message: () => { throw { status: 422, message: "The responsable-bodega is required" } } })
     @Max(20, { message: () => { throw { status: 406, message: "The responsable-bodega cannot contain more than 20 characters"}}})
@@ -84,7 +81,6 @@ export class BodegasP {
     Responsable: number
 
     @Expose({name: "estado-bodega"})
-    @ValidateIf(o => o.Estado !== undefined)
     @IsNotEmpty({ message: () => { throw { status: 422, message: "The estado-bodega cannot be empty" } } })
     @IsDefined({ message: () => { throw { status: 422, message: "The estado-bodega is required" } } })
     @Max(1, { message: () => { throw { status: 406, message: "The estado-bodega cannot contain more than 1 characters"}}})
