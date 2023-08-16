@@ -29,11 +29,11 @@ const addBodegas = async (req, res) => {
         }
 
         if(!dataSend.Created_at){
-            dataSend.Created_at = new Date();
+            dataSend.Created_at = (new Date()).toISOString();
         }
 
         if(!dataSend.Update_at){
-            dataSend.Update_at = new Date();
+            dataSend.Update_at = (new Date()).toISOString();
         }
 
         if(!dataSend.Deleted_at){
