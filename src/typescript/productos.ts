@@ -71,6 +71,33 @@ export class ProductosG {
     constructor(data: Partial<ProductosG>) {Object.assign(this, data)}
 }
 
+export class ProductosGT {
+    
+    @Expose({ name: '_id'})
+    @ValidateIf(o => 0["id-producto"] !== undefined)
+    @IsNotEmpty({ message: 'The id-producto cannot be empty' })
+    @IsDefined({ message: () => { throw { status: 422, message: "The id-producto is required" } } })
+    @IsNumber({}, { message: () => { throw { status: 406, message: "The id-producto must be a number" } } })
+    ["id-producto"]: number;
+
+    @Expose({ name: 'Nombre'})
+    @ValidateIf(o => o["nombre-productos"] !== undefined)
+    @IsNotEmpty({ message: 'The nombre-productos cannot be empty' })
+    @IsDefined({ message: () => { throw { status: 422, message: "The nombre-productos is required" } } })
+    @MaxLength(25, { message: () => { throw { status: 406, message: "The nombre-productos must be less than 50 characters" } } })
+    @IsString({ message: () => { throw { status: 406, message: "The nombre-productos must be a string" } } })
+    ["nombre-productos"]: string;
+
+    @Expose({ name: "total_cantidad"})
+    @ValidateIf(o => o["cantidad-total"] !== undefined)
+    @IsNotEmpty({ message: 'The cantidad-total cannot be empty' })
+    @IsDefined({ message: () => { throw { status: 422, message: "The cantidad-total is required" } } })
+    @IsNumber({}, { message: () => { throw { status: 406, message: "The cantidad-total must be a number" } } })
+    ["cantidad-total"]: number;
+
+    constructor(data: Partial<ProductosGT>) {Object.assign(this, data)}
+}
+
 export class ProductosP {
     
 }
