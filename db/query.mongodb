@@ -98,7 +98,7 @@ db.createCollection("Productos", {
                 },
                 Descripcion: {
                     bsonType: "string",
-                    description: "Campo obligatorio y debe ser un entero."
+                    description: "Campo obligatorio y debe ser un string."
                 },
                 estado: {
                     bsonType: "int",
@@ -116,7 +116,7 @@ db.createCollection("Productos", {
                     bsonType: ["string", "null"],
                     description: "Campo opcional y debe ser una fecha o nulo."
                 },
-                update_at: {
+                updated_at: {
                     bsonType: ["string", "null"],
                     description: "Campo opcional y debe ser una fecha o nulo."
                 },
@@ -127,7 +127,7 @@ db.createCollection("Productos", {
             }
         }
     }
-})
+});
 
 use("db_endpoints_bodega");
 db.Productos.insertMany([
