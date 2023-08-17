@@ -57,10 +57,10 @@ const addProductos = async (req, res) => {
         const validationErrors = await validate(dataSend);
 
         if (!dataSend.Creador) {
-            dataSend.Creador = dataSend.Responsable;
+            dataSend.Creador = dataSend.Creador;
         }
         if (!dataSend.Update) {
-            dataSend.Update = dataSend.Responsable;
+            dataSend.Update = dataSend.Creador;
         }
 
         if(!dataSend.Created_at){
@@ -85,13 +85,21 @@ const addProductos = async (req, res) => {
             return;
         }
 
-        let bodegas = db.collection("Productos");
-        let dataArray = [dataSend.ID_Bodega, dataSend.Nombre, dataSend.Responsable, dataSend.Estado,dataSend.Creador, dataSend.Update,dataSend.Created_at,dataSend.Update_at,dataSend.Deleted_at]
-
+        let productos = db.collection("Productos");
+        let dataArray = [dataSend.ID_Producto, dataSend.Nombre, dataSend.Description, dataSend.Estado,dataSend.Creador, dataSend.Update,dataSend.Created_at,dataSend.Update_at,dataSend.Deleted_at];
         const document = {
-            
+            id: dataArray[0],
+            Nombre: dataArray[1],
+            Descripcion: dataArray[2],
+            estado: dataArray[3],
+            created_by: dataArray[4],
+            update_by: dataArray[5],
+            created_at: dataArray[6],
+            updated_at: dataArray[7],
+            deleted_at: dataArray[8]
         }
-        res.json({ message: 'Producto added successfully' });
+        const result = await productos.insertOne(document)
+        res.json(result);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
