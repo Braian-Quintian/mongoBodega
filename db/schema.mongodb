@@ -1,0 +1,259 @@
+use("db_endpoints_bodega");
+db.createCollection("Users", {
+    validator: {
+        $jsonSchema:{
+            bsonType: "object",
+            required: ["id", "nombre", "email", "estado","password"],
+            additionalProperties: true,
+            properties: {
+                id: {
+                    bsonType: "int",
+                    description: "Campo obligatorio y debe ser un entero."
+                },
+                nombre: {
+                    bsonType: "string",
+                    description: "Campo obligatorio y debe ser una cadena de texto."
+                },
+                email: {
+                    bsonType: "string",
+                    description: "Campo obligatorio y debe ser una cadena de texto."
+                },
+                email_verified_at: {
+                    bsonType: ["string", "null"],
+                    description: "Campo opcional y debe ser una fecha o nulo."
+                },
+                estado: {
+                    bsonType: "int",
+                    description: "Campo obligatorio y debe ser un entero."
+                },
+                created_by: {
+                    bsonType: ["int", "null"],
+                    description: "Campo opcional y debe ser un entero o nulo."
+                },
+                update_by: {
+                    bsonType: ["int", "null"],
+                    description: "Campo opcional y debe ser un entero o nulo."
+                },
+                foto: {
+                    bsonType: ["string", "null"],
+                    description: "Campo opcional y debe ser una cadena de texto o nulo."
+                },
+                password: {
+                    bsonType: "string",
+                    description: "Campo obligatorio y debe ser una cadena de texto."
+                },
+                created_at: {
+                    bsonType: ["string", "null"],
+                    description: "Campo opcional y debe ser una fecha o nulo."
+                },
+                update_at: {
+                    bsonType: ["string", "null"],
+                    description: "Campo opcional y debe ser una fecha o nulo."
+                },
+                deleted_at: {
+                    bsonType: ["string", "null"],
+                    description: "Campo opcional y debe ser una fecha o nulo."
+                }
+            }
+        }
+    }
+});
+use("db_endpoints_bodega");
+db.createCollection("Bodega", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["id", "Nombre", "id_responsable","estado"],
+            additionalProperties: true,
+            properties: {
+                id: {
+                    bsonType: "int",
+                    description: "Campo obligatorio y debe ser un entero."
+                },
+                Nombre: {
+                    bsonType: "string",
+                    description: "Campo obligatorio y debe ser una cadena de texto."
+                },
+                id_responsable: {
+                    bsonType: "int",
+                    description: "Campo obligatorio y debe ser un entero."
+                },
+                estado: {
+                    bsonType: "int",
+                    description: "Campo obligatorio y debe ser un entero."
+                },
+                created_by: {
+                    bsonType: ["int", "null"],
+                    description: "Campo opcional y debe ser un entero o nulo."
+                },
+                update_by: {
+                    bsonType: ["int", "null"],
+                    description: "Campo opcional y debe ser un entero o nulo."
+                },
+                created_at: {
+                    bsonType: ["string", "null"],
+                    description: "Campo opcional y debe ser una fecha o nulo."
+                },
+                update_at: {
+                    bsonType: ["string", "null"],
+                    description: "Campo opcional y debe ser una fecha o nulo."
+                },
+                deleted_at: {
+                    bsonType: ["string", "null"],
+                    description: "Campo opcional y debe ser una fecha o nulo."
+                }
+            }
+        }
+    }
+});
+
+use("db_endpoints_bodega");
+db.createCollection("Productos", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["id", "Nombre", "Descripcion","estado"],
+            additionalProperties: true,
+            properties: {
+                id: {
+                    bsonType: "int",
+                    description: "Campo obligatorio y debe ser un entero."
+                },
+                Nombre: {
+                    bsonType: "string",
+                    description: "Campo obligatorio y debe ser una cadena de texto."
+                },
+                Descripcion: {
+                    bsonType: "string",
+                    description: "Campo obligatorio y debe ser un entero."
+                },
+                estado: {
+                    bsonType: "int",
+                    description: "Campo obligatorio y debe ser un entero."
+                },
+                created_by: {
+                    bsonType: ["int", "null"],
+                    description: "Campo opcional y debe ser un entero o nulo."
+                },
+                update_by: {
+                    bsonType: ["int", "null"],
+                    description: "Campo opcional y debe ser un entero o nulo."
+                },
+                created_at: {
+                    bsonType: ["string", "null"],
+                    description: "Campo opcional y debe ser una fecha o nulo."
+                },
+                update_at: {
+                    bsonType: ["string", "null"],
+                    description: "Campo opcional y debe ser una fecha o nulo."
+                },
+                deleted_at: {
+                    bsonType: ["string", "null"],
+                    description: "Campo opcional y debe ser una fecha o nulo."
+                }
+            }
+        }
+    }
+});
+
+use("db_endpoint_bodega");
+db.createCollection("Historiales",{
+    validator:{
+        $jsonSchema:{
+            bsonType: "object",
+            required: ["id", "cantidad", "id_bodega_origen", "id_bodega_destino", "id_inventario"],
+            additionalProperties: true,
+            properties:{
+                id:{
+                    bsonType: "int",
+                    description: "Campo obligatorio y debe ser un entero."
+                },
+                cantidad: {
+                    bsonType: "int",
+                    description: "Campo obligatorio y debe ser un entero."
+                },
+                id_bodega_origen:{
+                    bsonType: "int",
+                    description: "Campo obligatorio y debe ser un entero."
+                },
+                id_bodega_destino:{
+                    bsonType: "int",
+                    description: "Campo obligatorio y debe ser un entero."
+                },
+                id_inventario:{
+                    bsonType: "int",
+                    description: "Campo obligatorio y debe ser un entero."
+                },
+                created_by:{
+                    bsonType: ["int", "null"],
+                    description: "Campo opcional y debe ser un entero o nulo."
+                },
+                update_by:{
+                    bsonType: ["int", "null"],
+                    description: "Campo opcional y debe ser un entero o nulo."
+                },
+                created_at:{
+                    bsonType: ["string", "null"],
+                    description: "Campo opcional y debe ser una fecha o nulo."
+                },
+                updated_at:{
+                    bsonType: ["string", "null"],
+                    description: "Campo opcional y debe ser una fecha o nulo."
+                },
+                deleted_at:{
+                    bsonType: ["string", "null"],
+                    description: "Campo opcional y debe ser una fecha o nulo."
+                }
+            }
+        }
+    }
+});
+
+use("db_endpoints_bodega");
+db.createCollection("Inventarios", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["id", "id_bodega", "id_producto","cantidad"],
+            additionalProperties: true,
+            properties: {
+                id: {
+                    bsonType: "int",
+                    description: "Campo obligatorio y debe ser un entero."
+                },
+                id_bodega: {
+                    bsonType: "int",
+                    description: "Campo obligatorio y debe ser un entero"
+                },
+                id_producto: {
+                    bsonType: "int",
+                    description: "Campo obligatorio y debe ser un entero."
+                },
+                cantidad: {
+                    bsonType: "int",
+                    description: "Campo obligatorio y debe ser un entero."
+                },
+                created_by: {
+                    bsonType: ["int", "null"],
+                    description: "Campo opcional y debe ser un entero o nulo."
+                },
+                update_by: {
+                    bsonType: ["int", "null"],
+                    description: "Campo opcional y debe ser un entero o nulo."
+                },
+                created_at: {
+                    bsonType: ["string", "null"],
+                    description: "Campo opcional y debe ser una fecha o nulo."
+                },
+                update_at: {
+                    bsonType: ["string", "null"],
+                    description: "Campo opcional y debe ser una fecha o nulo."
+                },
+                deleted_at: {
+                    bsonType: ["string", "null"],
+                    description: "Campo opcional y debe ser una fecha o nulo."
+                }
+            }
+        }
+    }
+});

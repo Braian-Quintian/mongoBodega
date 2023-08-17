@@ -1,52 +1,16 @@
 use("db_endpoints_bodega");
-db.createCollection("Bodega", {
-    validator: {
-        $jsonSchema: {
-            bsonType: "object",
-            required: ["id", "Nombre", "id_responsable","estado"],
-            additionalProperties: true,
-            properties: {
-                id: {
-                    bsonType: "int",
-                    description: "Campo obligatorio y debe ser un entero."
-                },
-                Nombre: {
-                    bsonType: "string",
-                    description: "Campo obligatorio y debe ser una cadena de texto."
-                },
-                id_responsable: {
-                    bsonType: "int",
-                    description: "Campo obligatorio y debe ser un entero."
-                },
-                estado: {
-                    bsonType: "int",
-                    description: "Campo obligatorio y debe ser un entero."
-                },
-                created_by: {
-                    bsonType: ["int", "null"],
-                    description: "Campo opcional y debe ser un entero o nulo."
-                },
-                update_by: {
-                    bsonType: ["int", "null"],
-                    description: "Campo opcional y debe ser un entero o nulo."
-                },
-                created_at: {
-                    bsonType: ["string", "null"],
-                    description: "Campo opcional y debe ser una fecha o nulo."
-                },
-                update_at: {
-                    bsonType: ["string", "null"],
-                    description: "Campo opcional y debe ser una fecha o nulo."
-                },
-                deleted_at: {
-                    bsonType: ["string", "null"],
-                    description: "Campo opcional y debe ser una fecha o nulo."
-                }
-            }
-        }
-    }
-});
-
+db.Users.insertMany ([
+{"id":11, "nombre":'juan0',"email": 'juan 0@hotmail.com',"email_verified_at": null,"estado" :1,"created_by": null, "update_by": null,"foto": null,"password": '12345',"created_at": null,"updated_at": null,"deleted_at": null},
+{"id":12, "nombre":'juan1',"email": 'juan 1@hotmail.com',"email_verified_at": null,"estado" :1,"created_by": null, "update_by": null,"foto": null,"password": '12345',"created_at": null,"updated_at": null,"deleted_at": null},
+{"id":13, "nombre":'juan2',"email": 'juan 2@hotmail.com',"email_verified_at": null,"estado" :1,"created_by": null, "update_by": null,"foto": null,"password": '12345',"created_at": null,"updated_at": null,"deleted_at": null},
+{"id":14, "nombre":'juan3',"email": 'juan 3@hotmail.com',"email_verified_at": null,"estado" :1,"created_by": null, "update_by": null,"foto": null,"password": '12345',"created_at": null,"updated_at": null,"deleted_at": null},
+{"id":15, "nombre":'juan4',"email": 'juan 4@hotmail.com',"email_verified_at": null,"estado" :1,"created_by": null, "update_by": null,"foto": null,"password": '12345',"created_at": null,"updated_at": null,"deleted_at": null},
+{"id":16, "nombre":'juan5',"email": 'juan 5@hotmail.com',"email_verified_at": null,"estado" :1,"created_by": null, "update_by": null,"foto": null,"password": '12345',"created_at": null,"updated_at": null,"deleted_at": null},
+{"id":17, "nombre":'juan6',"email": 'juan 6@hotmail.com',"email_verified_at": null,"estado" :1,"created_by": null, "update_by": null,"foto": null,"password": '12345',"created_at": null,"updated_at": null,"deleted_at": null},
+{"id":18, "nombre":'juan7',"email": 'juan 7@hotmail.com',"email_verified_at": null,"estado" :1,"created_by": null, "update_by": null,"foto": null,"password": '12345',"created_at": null,"updated_at": null,"deleted_at": null},
+{"id":19, "nombre":'juan8',"email": 'juan 8@hotmail.com',"email_verified_at": null,"estado" :1,"created_by": null, "update_by": null,"foto": null,"password": '12345',"created_at": null,"updated_at": null,"deleted_at": null},
+{"id":20, "nombre":'juan9',"email": 'juan 9@hotmail.com',"email_verified_at": null,"estado" :1,"created_by": null, "update_by": null,"foto": null,"password": '12345',"created_at": null,"updated_at": null,"deleted_at": null}
+]);
 db.Bodega.insertMany([
 {"id": 11,"Nombre": "bodega0", "id_responsable": 16, "estado": 1, "created_by": 16, "update_by": null, "created_at": "2022-06-02T15:33:48Z", "update_at": null, "deleted_at": null },
 {"id":12,"Nombre":'bodega1',"id_responsable": 18,"estado": 1, "created_by":18,"update_by": null,   "created_at":'2022-06-02 15:33:48', "update_at": null, "deleted_at":null},
@@ -79,56 +43,6 @@ db.Bodega.insertMany([
 {"id":49,"Nombre":'Bodega Anderson Atuesta555',"id_responsable": 11,"estado": 11,"created_by": null,"update_by": null,"created_at":'2022-07-21 21:27:13', "update_at":  '2022-07-21 21:27:13',"deleted_at": null},
 {"id":50,"Nombre":'A Bodega',"id_responsable": 11,"estado": 1, "created_by":null,"update_by": null, "created_at":'2023-05-25 01:02:57', "update_at": '2023-05-25 01:02:57',"deleted_at": null}
 ]);
-
-use("db_endpoints_bodega");
-db.createCollection("Productos", {
-    validator: {
-        $jsonSchema: {
-            bsonType: "object",
-            required: ["id", "Nombre", "Descripcion","estado"],
-            additionalProperties: true,
-            properties: {
-                id: {
-                    bsonType: "int",
-                    description: "Campo obligatorio y debe ser un entero."
-                },
-                Nombre: {
-                    bsonType: "string",
-                    description: "Campo obligatorio y debe ser una cadena de texto."
-                },
-                Descripcion: {
-                    bsonType: "string",
-                    description: "Campo obligatorio y debe ser un string."
-                },
-                estado: {
-                    bsonType: "int",
-                    description: "Campo obligatorio y debe ser un entero."
-                },
-                created_by: {
-                    bsonType: ["int", "null"],
-                    description: "Campo opcional y debe ser un entero o nulo."
-                },
-                update_by: {
-                    bsonType: ["int", "null"],
-                    description: "Campo opcional y debe ser un entero o nulo."
-                },
-                created_at: {
-                    bsonType: ["string", "null"],
-                    description: "Campo opcional y debe ser una fecha o nulo."
-                },
-                updated_at: {
-                    bsonType: ["string", "null"],
-                    description: "Campo opcional y debe ser una fecha o nulo."
-                },
-                deleted_at: {
-                    bsonType: ["string", "null"],
-                    description: "Campo opcional y debe ser una fecha o nulo."
-                }
-            }
-        }
-    }
-});
-
 use("db_endpoints_bodega");
 db.Productos.insertMany([
 {"id" : 11,"Nombre": 'producto0',                 "Descripcion": 'producto0',          "estado":1,"created_by": 16,  "update_by": null,  "created_at": null,                  "updated_at" : null, "deleted_at": null},
@@ -179,81 +93,8 @@ db.Productos.insertMany([
 {"id" : 59,"Nombre": 'Producto Anderson Atuesta3',"Descripcion": 'Esta es una prueba', "estado":1,"created_by": 11,  "update_by": null,  "created_at": '2022-07-21 20:49:42', "updated_at" :'2022-07-21 20:49:42', "deleted_at" :null},
 {"id" : 60,"Nombre": 'Pringles',                  "Descripcion": 'papas fritas',       "estado":1,"created_by": null,"update_by": null,  "created_at": '2023-05-25 03:52:26', "updated_at" :'2023-05-25 03:52:26', "deleted_at" :null}
 ]);
-
 use("db_endpoints_bodega");
-db.Productos.aggregate([
-    {
-        $lookup: {
-        from: "Inventarios",
-        localField: "id",
-        foreignField: "id_producto",
-        as: "Inventarios",
-        },
-    },
-    {
-        $unwind: "$Inventarios",
-    },
-    {
-        $group: {
-        _id: "$id",
-        Nombre: { $first: "$Nombre" },
-        total_cantidad: { $sum: "$Inventarios.cantidad" },
-        },
-    }
-]);
-
-use("db_endpoints_bodega");
-db.createCollection("Inventarios", {
-    validator: {
-        $jsonSchema: {
-            bsonType: "object",
-            required: ["id", "id_bodega", "id_producto","cantidad"],
-            additionalProperties: true,
-            properties: {
-                id: {
-                    bsonType: "int",
-                    description: "Campo obligatorio y debe ser un entero."
-                },
-                id_bodega: {
-                    bsonType: "int",
-                    description: "Campo obligatorio y debe ser un entero"
-                },
-                id_producto: {
-                    bsonType: "int",
-                    description: "Campo obligatorio y debe ser un entero."
-                },
-                cantidad: {
-                    bsonType: "int",
-                    description: "Campo obligatorio y debe ser un entero."
-                },
-                created_by: {
-                    bsonType: ["int", "null"],
-                    description: "Campo opcional y debe ser un entero o nulo."
-                },
-                update_by: {
-                    bsonType: ["int", "null"],
-                    description: "Campo opcional y debe ser un entero o nulo."
-                },
-                created_at: {
-                    bsonType: ["string", "null"],
-                    description: "Campo opcional y debe ser una fecha o nulo."
-                },
-                update_at: {
-                    bsonType: ["string", "null"],
-                    description: "Campo opcional y debe ser una fecha o nulo."
-                },
-                deleted_at: {
-                    bsonType: ["string", "null"],
-                    description: "Campo opcional y debe ser una fecha o nulo."
-                }
-            }
-        }
-    }
-});
-
-use("db_endpoints_bodega");
-db.Inventarios.insertMany(
-[
+db.Inventarios.insertMany([
 {"id": 12,"id_bodega": 12,"id_producto": 18,"cantidad": 103,"created_by": 11,"update_by": null,"created_at": null,"updated_at": "2023-05-26 01:35:52","deleted_at": null},
 {"id": 13,"id_bodega": 19,"id_producto": 18,"cantidad": 220,"created_by": 19,"update_by": null,"created_at": null,"updated_at": null,"deleted_at": null},
 {"id": 14,"id_bodega": 20,"id_producto": 13,"cantidad": 13,"created_by": 14,"update_by": null,"created_at": null,"updated_at": null,"deleted_at": null},
@@ -301,5 +142,18 @@ db.Inventarios.insertMany(
 {"id": 75,"id_bodega": 12,"id_producto": 33,"cantidad": 600,"created_by": 11,"update_by": null,"created_at": "2022-07-21 21:21:45","updated_at": "2022-07-21 21:24:15","deleted_at": null},
 {"id": 76,"id_bodega": 50,"id_producto": 60,"cantidad": 74,"created_by": null,"update_by": null,"created_at": "2023-05-25 03:52:26","updated_at": "2023-05-25 03:52:26","deleted_at": null},
 {"id": 77,"id_bodega": 12,"id_producto": 12,"cantidad": 124,"created_by": null,"update_by": null,"created_at": "2023-05-26 01:36:15","updated_at": "2023-05-26 01:37:39","deleted_at": null}
-]
-);
+]);
+use("db_endpoint_bodega");
+db.Historiales.insertMany([
+{"id":18,"cantidad": 7,   "id_bodega_origen":12, "id_bodega_destino":18, "id_inventario":18, "created_by":18,   "update_by":null, "created_at":null, "updated_at":null, "deleted_at":null},
+{"id":20,"cantidad": 9,   "id_bodega_origen":11, "id_bodega_destino":12, "id_inventario":18, "created_by":15,   "update_by":null, "created_at":null, "updated_at":null, "deleted_at":null},
+{"id":21,"cantidad": 7,   "id_bodega_origen":29, "id_bodega_destino":30, "id_inventario":36, "created_by":null, "update_by":null, "created_at":'2022-06-03 03:18:19', "updated_at":'2022-06-03 03:18:19', "deleted_at":null},
+{"id":22,"cantidad": 666, "id_bodega_origen":26, "id_bodega_destino":24, "id_inventario":27, "created_by":null, "update_by":null, "created_at":'2022-06-03 03:19:14', "updated_at":'2022-06-03 03:19:14', "deleted_at":null},
+{"id":23,"cantidad": 100, "id_bodega_origen":19, "id_bodega_destino":18, "id_inventario":41, "created_by":null, "update_by":null, "created_at":'2022-06-03 03:20:24', "updated_at":'2022-06-03 03:20:24', "deleted_at":null},
+{"id":24,"cantidad": 25,  "id_bodega_origen":19, "id_bodega_destino":26, "id_inventario":41, "created_by":null, "update_by":null, "created_at":'2022-06-03 03:27:47', "updated_at":'2022-06-03 03:27:47', "deleted_at":null},
+{"id":25,"cantidad": 25,  "id_bodega_origen":19, "id_bodega_destino":26, "id_inventario":41, "created_by":null, "update_by":null, "created_at":'2022-06-03 03:28:27', "updated_at":'2022-06-03 03:28:27', "deleted_at":null},
+{"id":26,"cantidad": 300, "id_bodega_origen":18, "id_bodega_destino":12, "id_inventario":42, "created_by":null, "update_by":null, "created_at":'2022-06-03 03:51:23', "updated_at":'2022-06-03 03:51:23', "deleted_at":null},
+{"id":27,"cantidad": 300, "id_bodega_origen":18, "id_bodega_destino":12, "id_inventario":42, "created_by":null, "update_by":null, "created_at":'2022-06-03 03:51:35', "updated_at":'2022-06-03 03:51:35', "deleted_at":null},
+{"id":28,"cantidad": 1,   "id_bodega_origen":12, "id_bodega_destino":11, "id_inventario":67, "created_by":null, "update_by":null, "created_at":'2022-07-11 22:17:10', "updated_at":'2022-07-11 22:17:10', "deleted_at":null},
+{"id":29,"cantidad": 200, "id_bodega_origen":11, "id_bodega_destino":12, "id_inventario":75, "created_by":11,   "update_by":null, "created_at":'2022-07-21 21:24:15', "updated_at":'2022-07-21 21:24:15', "deleted_at":null}
+]);
