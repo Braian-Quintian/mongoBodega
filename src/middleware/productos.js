@@ -5,7 +5,7 @@ const router = Router();
 
 router.get('/', limitGet(),methodsProductos.getProductos);
 router.get('/total', limitGet(),methodsProductos.getTotalProductos);
-// router.post('/',limitPost() ,methodsProductos.addProductos);
+router.post('/',limitPost() ,methodsProductos.addProductos);
 
 export {
     router
